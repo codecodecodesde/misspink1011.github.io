@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="distributed system,paper," />
 
 
 
@@ -79,13 +79,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Design AssumptionsThe design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:  Node failure is the n">
+<meta name="keywords" content="distributed system,paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Google File System">
+<meta property="og:url" content="http://yoursite.com/2018/04/03/The-Google-File-System/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Design AssumptionsThe design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:  Node failure is the n">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/2018/04/03/The-Google-File-System/architecture.png">
+<meta property="og:updated_time" content="2018-04-03T20:13:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="The Google File System">
+<meta name="twitter:description" content="Design AssumptionsThe design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:  Node failure is the n">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/03/The-Google-File-System/architecture.png">
 
 
 
@@ -115,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/04/03/The-Google-File-System/"/>
 
 
 
 
 
-  <title>Hexo</title>
+  <title>The Google File System | Hexo</title>
   
 
 
@@ -140,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -214,9 +220,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -246,9 +252,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/03/The-Google-File-System/" itemprop="url">The Google File System</a></h1>
+          <h1 class="post-title" itemprop="name headline">The Google File System</h1>
         
 
         <div class="post-meta">
@@ -298,9 +302,7 @@
       
 
       
-        
-          
-            <h4 id="Design-Assumptions"><a href="#Design-Assumptions" class="headerlink" title="Design Assumptions"></a>Design Assumptions</h4><p>The design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:</p>
+        <h4 id="Design-Assumptions"><a href="#Design-Assumptions" class="headerlink" title="Design Assumptions"></a>Design Assumptions</h4><p>The design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:</p>
 <ul>
 <li><strong>Node failure is the norm.</strong> The system is built from many inexpensive commodity components that often fail. It must constantly monitor itself and detect, tolerate, and recover promptly from component failures on a routine basis.</li>
 <li>The system stores <strong>a modest number of large files</strong>. We expect a few million files, each typically 100 MB or larger in size. Multi-GB files are the common case and should be managed efficiently. Small files must be supported, but we need not optimize for them.</li>
@@ -314,8 +316,6 @@
 <p>The master maintains all file system metadata. This includes the namespace, access control information, the mapping from files to chunks, and the current locations of chunks. It also controls system-wide activities such as chunk lease management, garbage collection of orphaned chunks, and chunk migration between chunkservers. The master periodically communicates with each chunkserver in HeartBeat messages to give it instructions and collect its state.</p>
 <p>Clients interact with the master for metadata operations, but all data-bearing communication goes directly to the chunkservers to avoid master being a bottleneck. Neither the client nor the chunkserver caches file data. Clients do cache metadata, however.</p>
 
-          
-        
       
     </div>
     
@@ -330,14 +330,22 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/distributed-system/" rel="tag"># distributed system</a>
+          
+            <a href="/tags/paper/" rel="tag"># paper</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -347,10 +355,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -358,6 +367,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -378,8 +391,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -430,6 +452,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Design-Assumptions"><span class="nav-number">1.</span> <span class="nav-text">Design Assumptions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Architechture"><span class="nav-number">2.</span> <span class="nav-text">Architechture</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -563,6 +601,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
