@@ -88,7 +88,7 @@
 <meta property="og:description" content="Design AssumptionsThe design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:  Node failure is the n">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="http://yoursite.com/2018/04/03/The-Google-File-System/architecture.png">
-<meta property="og:updated_time" content="2018-04-03T20:13:08.000Z">
+<meta property="og:updated_time" content="2018-04-04T17:02:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="The Google File System">
 <meta name="twitter:description" content="Design AssumptionsThe design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:  Node failure is the n">
@@ -315,6 +315,15 @@
 <p>Files are divided into fixed-size chunks. Each chunk is identified by a unique 64 bit chunk handle assigned by the master at the time of chunk creation. The large chunck size (64MB) reduce clients’ needs to interact with the master, reduce network overhead by keeping TCP connection and reduce the size of metadata stored on the master. Chunkservers store chunks on local disks as Linux files and read or write chunk data specified by a chunk handle and byte range. For reliability, each chunk is replicated on multiple chunkservers (default: 3 replicas).</p>
 <p>The master maintains all file system metadata. This includes the namespace, access control information, the mapping from files to chunks, and the current locations of chunks. It also controls system-wide activities such as chunk lease management, garbage collection of orphaned chunks, and chunk migration between chunkservers. The master periodically communicates with each chunkserver in HeartBeat messages to give it instructions and collect its state.</p>
 <p>Clients interact with the master for metadata operations, but all data-bearing communication goes directly to the chunkservers to avoid master being a bottleneck. Neither the client nor the chunkserver caches file data. Clients do cache metadata, however.</p>
+<h6 id="—Metadata"><a href="#—Metadata" class="headerlink" title="—Metadata"></a>—Metadata</h6><p>The master stores 3 major types of metadata:</p>
+<ul>
+<li>the file and chunk namespace</li>
+<li>the mapping from files to chunks</li>
+<li>the locations of each chunk’s replicas</li>
+</ul>
+<p>All metadata is kept in the master’s memory. They first two types are also kept persistent by logging mutations to an operation log stored on the master’s local disk and replicated on remote machines.<br>Using a log allows us to update the master state simply, reliably, and without risking inconsistencies in the event of a master crash.The operation log also serves as a logical time line that defines the order of concurrent operations. The master does not store chunk location information persistently. Instead, it asks each chunkserver about its chunks at master startup and whenever a chunkserver joins the cluster. The master can keep itself up-to-date thereafter with regular HeartBeat messages.</p>
+<h6 id="—Consistency-Model-relaxed-consistency"><a href="#—Consistency-Model-relaxed-consistency" class="headerlink" title="—Consistency Model: relaxed consistency"></a>—Consistency Model: relaxed consistency</h6><p>First, file namespace mutations are handled exclusively by the master. Therefore, it guarantees atomicity and correctness.</p>
+<p>As for mutation in file region, the state after a data mutation depends on the type of mutation. </p>
 
       
     </div>
@@ -343,6 +352,22 @@
       
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/05/Paxos-Made-Simple小结/" rel="prev" title="Paxos Made Simple小结">
+                Paxos Made Simple小结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -416,7 +441,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -462,7 +487,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Design-Assumptions"><span class="nav-number">1.</span> <span class="nav-text">Design Assumptions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Architechture"><span class="nav-number">2.</span> <span class="nav-text">Architechture</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Design-Assumptions"><span class="nav-number">1.</span> <span class="nav-text">Design Assumptions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Architechture"><span class="nav-number">2.</span> <span class="nav-text">Architechture</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#—Metadata"><span class="nav-number">2.0.1.</span> <span class="nav-text">—Metadata</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#—Consistency-Model-relaxed-consistency"><span class="nav-number">2.0.2.</span> <span class="nav-text">—Consistency Model: relaxed consistency</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

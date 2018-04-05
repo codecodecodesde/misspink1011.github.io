@@ -229,6 +229,125 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/05/Paxos-Made-Simple小结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eringogogo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/05/Paxos-Made-Simple小结/" itemprop="url">Paxos Made Simple小结</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-05T13:34:20-04:00">
+                2018-04-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/03/The-Google-File-System/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -313,6 +432,15 @@
 <p>Files are divided into fixed-size chunks. Each chunk is identified by a unique 64 bit chunk handle assigned by the master at the time of chunk creation. The large chunck size (64MB) reduce clients’ needs to interact with the master, reduce network overhead by keeping TCP connection and reduce the size of metadata stored on the master. Chunkservers store chunks on local disks as Linux files and read or write chunk data specified by a chunk handle and byte range. For reliability, each chunk is replicated on multiple chunkservers (default: 3 replicas).</p>
 <p>The master maintains all file system metadata. This includes the namespace, access control information, the mapping from files to chunks, and the current locations of chunks. It also controls system-wide activities such as chunk lease management, garbage collection of orphaned chunks, and chunk migration between chunkservers. The master periodically communicates with each chunkserver in HeartBeat messages to give it instructions and collect its state.</p>
 <p>Clients interact with the master for metadata operations, but all data-bearing communication goes directly to the chunkservers to avoid master being a bottleneck. Neither the client nor the chunkserver caches file data. Clients do cache metadata, however.</p>
+<h6 id="—Metadata"><a href="#—Metadata" class="headerlink" title="—Metadata"></a>—Metadata</h6><p>The master stores 3 major types of metadata:</p>
+<ul>
+<li>the file and chunk namespace</li>
+<li>the mapping from files to chunks</li>
+<li>the locations of each chunk’s replicas</li>
+</ul>
+<p>All metadata is kept in the master’s memory. They first two types are also kept persistent by logging mutations to an operation log stored on the master’s local disk and replicated on remote machines.<br>Using a log allows us to update the master state simply, reliably, and without risking inconsistencies in the event of a master crash.The operation log also serves as a logical time line that defines the order of concurrent operations. The master does not store chunk location information persistently. Instead, it asks each chunkserver about its chunks at master startup and whenever a chunkserver joins the cluster. The master can keep itself up-to-date thereafter with regular HeartBeat messages.</p>
+<h6 id="—Consistency-Model-relaxed-consistency"><a href="#—Consistency-Model-relaxed-consistency" class="headerlink" title="—Consistency Model: relaxed consistency"></a>—Consistency Model: relaxed consistency</h6><p>First, file namespace mutations are handled exclusively by the master. Therefore, it guarantees atomicity and correctness.</p>
+<p>As for mutation in file region, the state after a data mutation depends on the type of mutation. </p>
 
           
         
@@ -394,7 +522,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
