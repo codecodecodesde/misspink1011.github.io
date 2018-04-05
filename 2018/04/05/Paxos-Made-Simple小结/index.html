@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="distributed system,paper," />
 
 
 
@@ -79,14 +79,18 @@
 
 
 
+<meta name="description" content="Introduction之前简单学习过paxos算法，但是始终觉得有些困惑，今天又重新拿出分布式课上的老熟人Lamport大佬的论文重读，做个总结。说点题外话，在维基百科上查了一下Lamport的个人履历，可谓是跌宕起伏，绝对是神一样的存在。 Consensus AlgorithmThe ProblemPaxos要解决的是这样一个问题，假设有多个process， 每个process都要提出一个va">
+<meta name="keywords" content="distributed system,paper">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paxos Made Simple小结">
 <meta property="og:url" content="http://yoursite.com/2018/04/05/Paxos-Made-Simple小结/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Introduction之前简单学习过paxos算法，但是始终觉得有些困惑，今天又重新拿出分布式课上的老熟人Lamport大佬的论文重读，做个总结。说点题外话，在维基百科上查了一下Lamport的个人履历，可谓是跌宕起伏，绝对是神一样的存在。 Consensus AlgorithmThe ProblemPaxos要解决的是这样一个问题，假设有多个process， 每个process都要提出一个va">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-04-05T17:34:20.000Z">
+<meta property="og:updated_time" content="2018-04-05T21:22:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paxos Made Simple小结">
+<meta name="twitter:description" content="Introduction之前简单学习过paxos算法，但是始终觉得有些困惑，今天又重新拿出分布式课上的老熟人Lamport大佬的论文重读，做个总结。说点题外话，在维基百科上查了一下Lamport的个人履历，可谓是跌宕起伏，绝对是神一样的存在。 Consensus AlgorithmThe ProblemPaxos要解决的是这样一个问题，假设有多个process， 每个process都要提出一个va">
 
 
 
@@ -296,7 +300,23 @@
       
 
       
-        
+        <h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><p>之前简单学习过paxos算法，但是始终觉得有些困惑，今天又重新拿出分布式课上的老熟人Lamport大佬的论文重读，做个总结。说点题外话，在维基百科上查了一下Lamport的个人履历，可谓是跌宕起伏，绝对是神一样的存在。</p>
+<h4 id="Consensus-Algorithm"><a href="#Consensus-Algorithm" class="headerlink" title="Consensus Algorithm"></a>Consensus Algorithm</h4><h5 id="The-Problem"><a href="#The-Problem" class="headerlink" title="The Problem"></a>The Problem</h5><p>Paxos要解决的是这样一个问题，假设有多个process， 每个process都要提出一个value，而最终达成一个一致性的目标。关于这个目标，Lamport提出了三个<strong>safety requirements:</strong></p>
+<ul>
+<li>Only a value that has been proposed may be chosen,</li>
+<li>Only a single value is chosen, and</li>
+<li>A process never learns that a value has been chosen unless it actually has been.</li>
+</ul>
+<p>Paxos的目标就是要保证有某一个value会被选中，那个被选中的value最终可以被process知道(learn)。在Paxos算法中有三个很重要的角色: <strong>proposer</strong>, <strong>acceptor</strong>, <strong>learner</strong>。</p>
+<h5 id="Choosing-a-Value"><a href="#Choosing-a-Value" class="headerlink" title="Choosing a Value"></a>Choosing a Value</h5><p>此处略掉算法推导的过程，直接列出核心算法:<br><strong>Phase 1:</strong><br><strong>(a) Proposer发送prepare请求：</strong><br>Proposer携带全局唯一且递增的Proposal#，向系统中的所有机器发送Prepare请求。<br><strong>(b) Acceptor回应prepare请求:</strong><br>Acceptor 收到 Prepare请求 后，判断:  new proposal#  V.S. all responsed proposal#：</p>
+<p><strong>if proposal# is max#:</strong><br>(1) 在本地持久化 Proposal#，可记为max#。<br>(2) 做出承诺：不会Accept 任何 小于 Max_ProposalID的提案。<br>(3) 回复请求，并带上 已Accept的提案中 ProposalID 最大的 value（若此时还没有已Accept的提案，则返回value为空。<br><code>{&lt;promise&gt;, &lt;old max#, value&gt;}</code><br><strong>else:</strong>   不回应</p>
+<p><strong>Phase 2:</strong><br><strong>(a) Proposer发送accept请求：</strong><br>如果Proposer收到多半Acceptor对于prepare请求的回复，Proposer向Acceptor发出accept请求，<br><code>{ &lt;proposal#&gt;, &lt;value&gt; }</code>, 该请求的value有两种可能：若接收到的Acceptor的回复中value都是空（这些acceptor第一次收到proposal），那么Proposer指定一个value。若接收到的acceptor的回复不为空，Proposer发送请求, 把曾经收到的回复中有着最大<code>old max#</code>回复对应的value作为自己propsal的内容发送给Acceptors。</p>
+<p>如果  Proposer没有收到过半的Acceptor的回应，回到Phase1重新开始提案。<br><strong>(b) Acceptor接受accept请求：</strong><br>如果一个Acceptor收到accept请求中，proposal# &gt;= 他本地的max#， 那么就接受这个提案。否则，提案接受失败。</p>
+<p>这部分成功选出并通过了一个提案，接下来需要让系统里的learner学习到这个提案。</p>
+<h5 id="Learning-a-chosen-Value"><a href="#Learning-a-chosen-Value" class="headerlink" title="Learning a chosen Value"></a>Learning a chosen Value</h5><p>这部分的实现有多种方案， 比较合乎实际的两种是：<br>(1). 在learner中选择一个distinguished learner，Acceptors把自己接受到的提案发送给这个课代表，再由它广播给其他的learnners。<br>(2). 更为一般化的方法是，选出几个distinguished learner, Acceptors把自己接受的提案发给这些课代表们，再由它们通知其他的learners。<br>第二种方法更加的可靠，当然在通信上的花费也更多。</p>
+<h5 id="Progress"><a href="#Progress" class="headerlink" title="Progress"></a>Progress</h5><p>Lamport在这部分还提到了一种永远得不到正确提案的可能性。如果两个Proposer不断的竞争发proposal， 并且proposal#总比对方大1，这就会导致Paxos总是停留在选出提案人的阶段。为了保证算法能正常运转，这里需要有一个distinguished proposer， 选出distinguished proposer也有相关算法，这里不做扩展。</p>
+<h4 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h4><p>这篇文章对Paxos算法的核心内容进行了梳理，然而个人感觉这些还只是皮毛。主要的疑惑在于，不清楚Paxos算法在实际的分布式架构中到底是如何起到作用的，到底解决了怎样的实际问题。这些疑惑留在以后学习，希望可以在以后的工作中有实战的机会。</p>
+
       
     </div>
     
@@ -310,6 +330,14 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/distributed-system/" rel="tag"># distributed system</a>
+          
+            <a href="/tags/paper/" rel="tag"># paper</a>
+          
+        </div>
       
 
       
@@ -380,8 +408,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -432,6 +469,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Introduction"><span class="nav-number">1.</span> <span class="nav-text">Introduction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Consensus-Algorithm"><span class="nav-number">2.</span> <span class="nav-text">Consensus Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#The-Problem"><span class="nav-number">2.1.</span> <span class="nav-text">The Problem</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Choosing-a-Value"><span class="nav-number">2.2.</span> <span class="nav-text">Choosing a Value</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Learning-a-chosen-Value"><span class="nav-number">2.3.</span> <span class="nav-text">Learning a chosen Value</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Progress"><span class="nav-number">2.4.</span> <span class="nav-text">Progress</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TODO"><span class="nav-number">3.</span> <span class="nav-text">TODO</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
