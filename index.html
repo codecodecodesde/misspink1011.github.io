@@ -82,7 +82,7 @@
 <meta name="description" content="Stay Hungry. Stay Foolish.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="eringogogo">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="https://misspink1011.github.io/blog/index.html">
 <meta property="og:site_name" content="eringogogo">
 <meta property="og:description" content="Stay Hungry. Stay Foolish.">
 <meta property="og:locale" content="default">
@@ -118,7 +118,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="https://misspink1011.github.io/blog/"/>
 
 
 
@@ -242,7 +242,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2018/04/05/Paxos-Made-Simple小结/">
+    <link itemprop="mainEntityOfPage" href="https://misspink1011.github.io/blog/blog/2018/04/05/Paxos-Made-Simple小结/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eringogogo">
@@ -295,24 +295,6 @@
           
 
           
-            <div class="post-wordcount">
-              
-
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  
-                </span>
-              
-            </div>
-          
 
           
 
@@ -331,24 +313,16 @@
       
         
           
-            <h4 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h4><p>之前简单学习过paxos算法，但是始终觉得有些困惑，今天又重新拿出分布式课上的老熟人Lamport大佬的论文重读，做个总结。说点题外话，在维基百科上查了一下Lamport的个人履历，可谓是跌宕起伏，绝对是神一样的存在。</p>
-<h4 id="Consensus-Algorithm"><a href="#Consensus-Algorithm" class="headerlink" title="Consensus Algorithm"></a>Consensus Algorithm</h4><h5 id="The-Problem"><a href="#The-Problem" class="headerlink" title="The Problem"></a>The Problem</h5><p>Paxos要解决的是这样一个问题，假设有多个process， 每个process都要提出一个value，而最终达成一个一致性的目标。关于这个目标，Lamport提出了三个<strong>safety requirements:</strong></p>
-<ul>
-<li>Only a value that has been proposed may be chosen,</li>
-<li>Only a single value is chosen, and</li>
-<li>A process never learns that a value has been chosen unless it actually has been.</li>
-</ul>
-<p>Paxos的目标就是要保证有某一个value会被选中，那个被选中的value最终可以被process知道(learn)。在Paxos算法中有三个很重要的角色: <strong>proposer</strong>, <strong>acceptor</strong>, <strong>learner</strong>。</p>
-<h5 id="Choosing-a-Value"><a href="#Choosing-a-Value" class="headerlink" title="Choosing a Value"></a>Choosing a Value</h5><p>此处略掉算法推导的过程，直接列出核心算法:<br><strong>Phase 1:</strong><br><strong>(a) Proposer发送prepare请求：</strong><br>Proposer携带全局唯一且递增的Proposal#，向系统中的所有机器发送Prepare请求。<br><strong>(b) Acceptor回应prepare请求:</strong><br>Acceptor 收到 Prepare请求 后，判断:  new proposal#  V.S. all responsed proposal#：</p>
-<p><strong>if proposal# is max#:</strong><br>(1) 在本地持久化 Proposal#，可记为max#。<br>(2) 做出承诺：不会Accept 任何 小于 Max_ProposalID的提案。<br>(3) 回复请求，并带上 已Accept的提案中 ProposalID 最大的 value（若此时还没有已Accept的提案，则返回value为空。<br><code>{&lt;promise&gt;, &lt;old max#, value&gt;}</code><br><strong>else:</strong>   不回应</p>
-<p><strong>Phase 2:</strong><br><strong>(a) Proposer发送accept请求：</strong><br>如果Proposer收到多半Acceptor对于prepare请求的回复，Proposer向Acceptor发出accept请求，<br><code>{ &lt;proposal#&gt;, &lt;value&gt; }</code>, 该请求的value有两种可能：若接收到的Acceptor的回复中value都是空（这些acceptor第一次收到proposal），那么Proposer指定一个value。若接收到的acceptor的回复不为空，Proposer发送请求, 把曾经收到的回复中有着最大<code>old max#</code>回复对应的value作为自己propsal的内容发送给Acceptors。</p>
-<p>如果  Proposer没有收到过半的Acceptor的回应，回到Phase1重新开始提案。<br><strong>(b) Acceptor接受accept请求：</strong><br>如果一个Acceptor收到accept请求中，proposal# &gt;= 他本地的max#， 那么就接受这个提案。否则，提案接受失败。</p>
-<p>这部分成功选出并通过了一个提案，接下来需要让系统里的learner学习到这个提案。</p>
-<h5 id="Learning-a-chosen-Value"><a href="#Learning-a-chosen-Value" class="headerlink" title="Learning a chosen Value"></a>Learning a chosen Value</h5><p>这部分的实现有多种方案， 比较合乎实际的两种是：<br>(1). 在learner中选择一个distinguished learner，Acceptors把自己接受到的提案发送给这个课代表，再由它广播给其他的learnners。<br>(2). 更为一般化的方法是，选出几个distinguished learner, Acceptors把自己接受的提案发给这些课代表们，再由它们通知其他的learners。<br>第二种方法更加的可靠，当然在通信上的花费也更多。</p>
-<h5 id="Progress"><a href="#Progress" class="headerlink" title="Progress"></a>Progress</h5><p>Lamport在这部分还提到了一种永远得不到正确提案的可能性。如果两个Proposer不断的竞争发proposal， 并且proposal#总比对方大1，这就会导致Paxos总是停留在选出提案人的阶段。为了保证算法能正常运转，这里需要有一个distinguished proposer， 选出distinguished proposer也有相关算法，这里不做扩展。</p>
-<h4 id="TODO"><a href="#TODO" class="headerlink" title="TODO"></a>TODO</h4><p>这篇文章对Paxos算法的核心内容进行了梳理，然而个人感觉这些还只是皮毛。主要的疑惑在于，不清楚Paxos算法在实际的分布式架构中到底是如何起到作用的，到底解决了怎样的实际问题。这些疑惑留在以后学习，希望可以在以后的工作中有实战的机会。</p>
-
-          
+          Introduction之前简单学习过paxos算法，但是始终觉得有些困惑，今天又重新拿出分布式课上的老熟人Lamport大佬的论文重读，做个总结。说点题外话，在维基百科上查了一下Lamport的个人履历，可谓是跌宕起伏，绝对是神一样的存在。
+Consensus AlgorithmThe Probl
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/blog/2018/04/05/Paxos-Made-Simple小结/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -395,7 +369,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/blog/2018/04/03/The-Google-File-System/">
+    <link itemprop="mainEntityOfPage" href="https://misspink1011.github.io/blog/blog/2018/04/03/The-Google-File-System/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eringogogo">
@@ -448,24 +422,6 @@
           
 
           
-            <div class="post-wordcount">
-              
-
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Reading time &asymp;</span>
-                
-                <span title="Reading time">
-                  
-                </span>
-              
-            </div>
-          
 
           
 
@@ -484,30 +440,15 @@
       
         
           
-            <h4 id="Design-Assumptions"><a href="#Design-Assumptions" class="headerlink" title="Design Assumptions"></a>Design Assumptions</h4><p>The design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:</p>
-<ul>
-<li><strong>Node failure is the norm.</strong> The system is built from many inexpensive commodity components that often fail. It must constantly monitor itself and detect, tolerate, and recover promptly from component failures on a routine basis.</li>
-<li>The system stores <strong>a modest number of large files</strong>. We expect a few million files, each typically 100 MB or larger in size. Multi-GB files are the common case and should be managed efficiently. Small files must be supported, but we need not optimize for them.</li>
-<li>The workloads primarily consist: <strong>large streaming reads, small random reads and large, sequential appending writes</strong>.</li>
-<li>The system must efficiently implement well-defined semantics for multiple clients that <strong>concurrently append to the same file</strong>. Our files are often used as producer-consumer queues or for many-way merging.</li>
-<li><strong>High sustained bandwidth</strong> is more important than low latency.</li>
-</ul>
-<h4 id="Architechture"><a href="#Architechture" class="headerlink" title="Architechture"></a>Architechture</h4><p>A GFS cluster consistes of a <strong>single master</strong> and <strong>multiple chunkservers</strong> and is accessed by <strong>multiple clients</strong>.</p>
-<p><img src="/2018/04/03/The-Google-File-System/architecture.png" alt="GFS Architecture"></p>
-<p>Files are divided into fixed-size chunks. Each chunk is identified by a unique 64 bit chunk handle assigned by the master at the time of chunk creation. The large chunck size (64MB) reduce clients’ needs to interact with the master, reduce network overhead by keeping TCP connection and reduce the size of metadata stored on the master. Chunkservers store chunks on local disks as Linux files and read or write chunk data specified by a chunk handle and byte range. For reliability, each chunk is replicated on multiple chunkservers (default: 3 replicas).</p>
-<p>The master maintains all file system metadata. This includes the namespace, access control information, the mapping from files to chunks, and the current locations of chunks. It also controls system-wide activities such as chunk lease management, garbage collection of orphaned chunks, and chunk migration between chunkservers. The master periodically communicates with each chunkserver in HeartBeat messages to give it instructions and collect its state.</p>
-<p>Clients interact with the master for metadata operations, but all data-bearing communication goes directly to the chunkservers to avoid master being a bottleneck. Neither the client nor the chunkserver caches file data. Clients do cache metadata, however.</p>
-<h6 id="—Metadata"><a href="#—Metadata" class="headerlink" title="—Metadata"></a>—Metadata</h6><p>The master stores 3 major types of metadata:</p>
-<ul>
-<li>the file and chunk namespace</li>
-<li>the mapping from files to chunks</li>
-<li>the locations of each chunk’s replicas</li>
-</ul>
-<p>All metadata is kept in the master’s memory. They first two types are also kept persistent by logging mutations to an operation log stored on the master’s local disk and replicated on remote machines.<br>Using a log allows us to update the master state simply, reliably, and without risking inconsistencies in the event of a master crash.The operation log also serves as a logical time line that defines the order of concurrent operations. The master does not store chunk location information persistently. Instead, it asks each chunkserver about its chunks at master startup and whenever a chunkserver joins the cluster. The master can keep itself up-to-date thereafter with regular HeartBeat messages.</p>
-<h6 id="—Consistency-Model-relaxed-consistency"><a href="#—Consistency-Model-relaxed-consistency" class="headerlink" title="—Consistency Model: relaxed consistency"></a>—Consistency Model: relaxed consistency</h6><p>First, file namespace mutations are handled exclusively by the master. Therefore, it guarantees atomicity and correctness.</p>
-<p>As for mutation in file region, the state after a data mutation depends on the type of mutation. </p>
-
-          
+          Design AssumptionsThe design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. I
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/blog/2018/04/03/The-Google-File-System/#more" rel="contents">
+              Read more &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
