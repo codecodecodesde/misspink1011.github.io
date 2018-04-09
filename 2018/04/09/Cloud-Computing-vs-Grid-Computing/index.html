@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="distributed system,paper," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="OverviewSimilarity The vision is the same – to reduce the cost of computing, increase reliability, and increase flexibility by transforming computers from something that we buy and operate ourselves t">
+<meta name="keywords" content="distributed system,paper">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cloud Computing vs. Grid Computing">
+<meta property="og:url" content="https://misspink1011.github.io/2018/04/09/Cloud-Computing-vs-Grid-Computing/index.html">
+<meta property="og:site_name" content="eringogogo">
+<meta property="og:description" content="OverviewSimilarity The vision is the same – to reduce the cost of computing, increase reliability, and increase flexibility by transforming computers from something that we buy and operate ourselves t">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://misspink1011.github.io/2018/04/09/Cloud-Computing-vs-Grid-Computing/triangleModel.png">
+<meta property="og:updated_time" content="2018-04-09T18:23:21.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Cloud Computing vs. Grid Computing">
+<meta name="twitter:description" content="OverviewSimilarity The vision is the same – to reduce the cost of computing, increase reliability, and increase flexibility by transforming computers from something that we buy and operate ourselves t">
+<meta name="twitter:image" content="https://misspink1011.github.io/2018/04/09/Cloud-Computing-vs-Grid-Computing/triangleModel.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://misspink1011.github.io/2018/04/09/Cloud-Computing-vs-Grid-Computing/"/>
+
+
+
+
+
+  <title>Cloud Computing vs. Grid Computing | eringogogo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">eringogogo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://misspink1011.github.io/2018/04/09/Cloud-Computing-vs-Grid-Computing/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="eringogogo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="eringogogo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Cloud Computing vs. Grid Computing</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-09T11:32:14-04:00">
+                2018-04-09
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h4><h5 id="Similarity"><a href="#Similarity" class="headerlink" title="Similarity"></a>Similarity</h5><ul>
+<li>The vision is the same – to reduce the cost of computing, increase reliability, and increase flexibility by transforming computers from something that we buy and operate ourselves to something that is operated by a third party.</li>
+<li>The problems are mostly the same in Clouds and Grids. There is a common need to be able to manage large facilities; to define methods by which consumers discover, request, and use resources provided by the central facilities; and to implement the often highly parallel computations that execute on those resources. Details differ, but the two communities are struggling with many of the same issues.</li>
+</ul>
+<h4 id="Comparing-Grids-and-Clouds-Side-by-Side"><a href="#Comparing-Grids-and-Clouds-Side-by-Side" class="headerlink" title="Comparing Grids and Clouds Side-by-Side"></a>Comparing Grids and Clouds Side-by-Side</h4><h5 id="Business-Model"><a href="#Business-Model" class="headerlink" title="Business Model"></a>Business Model</h5><p><strong>Grids:</strong>  The business model for Grids (at least that found in academia or government labs) is project-oriented in which the users or community represented by that proposal have certain number of service units (i.e. CPU hours) they can spend.<br><strong>Clouds:</strong>  A customer will pay the provider on a consumption basis, very much like the utility companies charge for basic utilities such as electricity, gas, and water, and the model relies on economies of scale in order to drive prices down for users and profits up for providers.</p>
+<h5 id="Architecture"><a href="#Architecture" class="headerlink" title="Architecture"></a>Architecture</h5><p><strong>Grids:</strong> Grids focused on integrating existing resources with their hardware, operating systems, local resource management, and security infrastructure. Grids define and provide a set of standard protocols, middleware, toolkits, and services built on top of these protocols.Grids provide protocols and services at five different layers as identified in the Grid protocol architecture shown in figure bellow.<br><strong>Clouds:</strong> Clouds are developed to address Internet-scale computing problems where some assumptions are different from those of the Grids. Clouds are usually referred to as a large pool of computing and/or storage resources, which can be accessed via standard protocols via an abstract interface. Clouds can be built on top of many existing protocols. It defines a four-layer architecture for Cloud Computing in comparison to the Grid architecture, composed of 1) fabric, 2) unified resource, 3) platform, and 4) application Layers.</p>
+<h5 id="Resource-Management"><a href="#Resource-Management" class="headerlink" title="Resource Management"></a>Resource Management</h5><h6 id="Compute-Model"><a href="#Compute-Model" class="headerlink" title="Compute Model"></a>Compute Model</h6><p><strong>Grids:</strong> use a batch-schedualed compute model:<br> in which a local resource manager (LRM), manages the compute resources for a Grid site, and users submit batch jobs (via GRAM) to request some resources for some time (e.g. to dedicated resources governed by a queue system). This expensice schedualing decision leads that many Grids done’s natively support interactive applications.<br> <strong>Clouds:</strong> resources are shared by all users at the same time. This should allow latency sensitive applications to operate natively on Clouds.</p>
+<h6 id="Data-Model"><a href="#Data-Model" class="headerlink" title="Data Model"></a>Data Model</h6><p> <strong>Grids:</strong> Data Grids have been specifically designed to tackle data intensive applications in Grid environments, with the concept of virtual data playing a crucial role. A data grid can provide:</p>
+<ul>
+<li>location transparency</li>
+<li>materialization transparency</li>
+<li>representation transparency</li>
+</ul>
+<p><strong>Clouds:</strong>  The next-generation Internet Computing will take the triangle model Internet show in Figure bellow. Computing will be centralized around Data, Clouding Computing, as well as Client Computing.<br><img src="/2018/04/09/Cloud-Computing-vs-Grid-Computing/triangleModel.png" alt="triangle model"></p>
+<h6 id="Data-Locality"><a href="#Data-Locality" class="headerlink" title="Data Locality"></a>Data Locality</h6><p>To achieve good scalability at Internet scales for Clouds, Grids, and their applications, data must be distributed over many computers, and computations must be steered towards the best place to execute in order to minimize the communication costs.<br><strong>Grids:</strong> Data storage usually relies on a shared file systems (e.g. NFS, GPFS, PVFS, Luster), where data locality cannot be easily applied.<br><strong>Clouds:</strong> Data locality is exploited efficiently. For example, Google’s MapReduce system runs on top of the Google File System.</p>
+<h6 id="Virtualization"><a href="#Virtualization" class="headerlink" title="Virtualization"></a>Virtualization</h6><p><strong>Grids:</strong> do not rely on virtualization as much as Clouds do, but that might be more due to policy and having each individual organization maintain full control of their resources (i.e. by not virtualizing them). However, there are efforts in Grids to use virtualization as well.<br><strong>Clouds:</strong> Virtualization has become an indispensable ingredient for almost every Cloud, the most obvious reasons are for abstraction and encapsulation.</p>
+<h6 id="Monitoring"><a href="#Monitoring" class="headerlink" title="Monitoring"></a>Monitoring</h6><p><strong>Grids:</strong> Grids monitoring is straightforward, because Grids in general have a different trust model in which users via their identity delegation can access and browse resources at different Grid sites, and Grid resources are not highly abstracted and virtualized as in Clouds.<br><strong>Clouds:</strong> Clouds monitoring is difficult, because different levels of services can be offered to an end user, the user is only exposed to a pre-defined API, and the lower level resources are opaque to the user The user does not have the liberty to deploy her own monitoring infrastructure, and the limited information returned to the user may not provide the necessary level of details for her to figure out what the resource status is.</p>
+<h6 id="Provenance"><a href="#Provenance" class="headerlink" title="Provenance:"></a>Provenance:</h6><h5 id="Programming-Model"><a href="#Programming-Model" class="headerlink" title="Programming Model"></a>Programming Model</h5><h5 id="Application-Model"><a href="#Application-Model" class="headerlink" title="Application Model"></a>Application Model</h5><p><strong>Grids:</strong> Grids generally support many different kinds of applications, ranging from high performance computing (HPC) to high throughput computing (HTC).<br>Another emerging class of applications in Grids is scientific gateways [51], which are front-ends to a variety of applications that can be anything from loosely-coupled to tightly-coupled.<br><strong>Clouds:</strong> Cloud Computing could in principle cater to a similar set of applications. The one exception that will likely be hard to achieve in Cloud Computing (but has had much success in Grids) are HPC applications that require fast and low latency network interconnects for efficient scaling to many processors.</p>
+<h5 id="Security-Model"><a href="#Security-Model" class="headerlink" title="Security Model"></a>Security Model</h5><p><strong>Grids:</strong> Grids are stricter about its security. Grids’security has been engineered in the fundamental Grid infrastructure. The key issues considered are single sign-on.<br><strong>Clouds:</strong> The security model for Clouds seems to be relatively simpler and less secure than the security model adopted by Grids. Cloud infrastructure typically rely on Web forms (over SSL) to create and manage account information for end-users in an unsafe and unencrypted communication.</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    eringogogo
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="https://misspink1011.github.io/2018/04/09/Cloud-Computing-vs-Grid-Computing/" title="Cloud Computing vs. Grid Computing">https://misspink1011.github.io/2018/04/09/Cloud-Computing-vs-Grid-Computing/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/distributed-system/" rel="tag"># distributed system</a>
+          
+            <a href="/tags/paper/" rel="tag"># paper</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/05/Paxos-Made-Simple小结/" rel="next" title="Paxos Made Simple小结">
+                <i class="fa fa-chevron-left"></i> Paxos Made Simple小结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">eringogogo</p>
+              <p class="site-description motion-element" itemprop="description">Stay Hungry. Stay Foolish.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/misspink1011" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xwwx.me@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Overview"><span class="nav-number">1.</span> <span class="nav-text">Overview</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Similarity"><span class="nav-number">1.1.</span> <span class="nav-text">Similarity</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Comparing-Grids-and-Clouds-Side-by-Side"><span class="nav-number">2.</span> <span class="nav-text">Comparing Grids and Clouds Side-by-Side</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Business-Model"><span class="nav-number">2.1.</span> <span class="nav-text">Business Model</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Architecture"><span class="nav-number">2.2.</span> <span class="nav-text">Architecture</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Resource-Management"><span class="nav-number">2.3.</span> <span class="nav-text">Resource Management</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Compute-Model"><span class="nav-number">2.3.1.</span> <span class="nav-text">Compute Model</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Data-Model"><span class="nav-number">2.3.2.</span> <span class="nav-text">Data Model</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Data-Locality"><span class="nav-number">2.3.3.</span> <span class="nav-text">Data Locality</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Virtualization"><span class="nav-number">2.3.4.</span> <span class="nav-text">Virtualization</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Monitoring"><span class="nav-number">2.3.5.</span> <span class="nav-text">Monitoring</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#Provenance"><span class="nav-number">2.3.6.</span> <span class="nav-text">Provenance:</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Programming-Model"><span class="nav-number">2.4.</span> <span class="nav-text">Programming Model</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Application-Model"><span class="nav-number">2.5.</span> <span class="nav-text">Application Model</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Security-Model"><span class="nav-number">2.6.</span> <span class="nav-text">Security Model</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">eringogogo</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

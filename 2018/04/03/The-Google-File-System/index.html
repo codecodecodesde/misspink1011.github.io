@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="eringogogo">
 <meta property="og:description" content="Design AssumptionsThe design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:  Node failure is the n">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://misspink1011.github.io/blog/2018/04/03/The-Google-File-System/architecture.png">
+<meta property="og:image" content="https://misspink1011.github.io/2018/04/03/The-Google-File-System/architecture.png">
 <meta property="og:updated_time" content="2018-04-04T17:02:35.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="The Google File System">
 <meta name="twitter:description" content="Design AssumptionsThe design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:  Node failure is the n">
-<meta name="twitter:image" content="https://misspink1011.github.io/blog/2018/04/03/The-Google-File-System/architecture.png">
+<meta name="twitter:image" content="https://misspink1011.github.io/2018/04/03/The-Google-File-System/architecture.png">
 
 
 
@@ -321,7 +321,7 @@
 <li><strong>High sustained bandwidth</strong> is more important than low latency.</li>
 </ul>
 <h4 id="Architechture"><a href="#Architechture" class="headerlink" title="Architechture"></a>Architechture</h4><p>A GFS cluster consistes of a <strong>single master</strong> and <strong>multiple chunkservers</strong> and is accessed by <strong>multiple clients</strong>.</p>
-<p><img src="/blog/2018/04/03/The-Google-File-System/architecture.png" alt="GFS Architecture"></p>
+<p><img src="/2018/04/03/The-Google-File-System/architecture.png" alt="GFS Architecture"></p>
 <p>Files are divided into fixed-size chunks. Each chunk is identified by a unique 64 bit chunk handle assigned by the master at the time of chunk creation. The large chunck size (64MB) reduce clients’ needs to interact with the master, reduce network overhead by keeping TCP connection and reduce the size of metadata stored on the master. Chunkservers store chunks on local disks as Linux files and read or write chunk data specified by a chunk handle and byte range. For reliability, each chunk is replicated on multiple chunkservers (default: 3 replicas).</p>
 <p>The master maintains all file system metadata. This includes the namespace, access control information, the mapping from files to chunks, and the current locations of chunks. It also controls system-wide activities such as chunk lease management, garbage collection of orphaned chunks, and chunk migration between chunkservers. The master periodically communicates with each chunkserver in HeartBeat messages to give it instructions and collect its state.</p>
 <p>Clients interact with the master for metadata operations, but all data-bearing communication goes directly to the chunkservers to avoid master being a bottleneck. Neither the client nor the chunkserver caches file data. Clients do cache metadata, however.</p>
@@ -469,7 +469,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
