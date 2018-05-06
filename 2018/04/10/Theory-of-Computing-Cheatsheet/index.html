@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="distributed system,paper," />
+  <meta name="keywords" content="theory of computing," />
 
 
 
@@ -79,20 +79,18 @@
 
 
 
-<meta name="description" content="Design AssumptionsThe design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:  Node failure is the n">
-<meta name="keywords" content="distributed system,paper">
+<meta name="description" content="final exam cheatsheet 4.1 DecidablilityUTM(Universal TM):on input &amp;lt; M, w &amp;gt; where M is A TM and w is a given input. Simulate M on w. If M ver accepts or rejects, so do we.L(U) = { &amp;lt; M, w &amp;gt;:">
+<meta name="keywords" content="theory of computing">
 <meta property="og:type" content="article">
-<meta property="og:title" content="The Google File System">
-<meta property="og:url" content="https://misspink1011.github.io/2018/04/03/The-Google-File-System/index.html">
+<meta property="og:title" content="Theory of Computing Cheatsheet">
+<meta property="og:url" content="https://misspink1011.github.io/2018/04/10/Theory-of-Computing-Cheatsheet/index.html">
 <meta property="og:site_name" content="eringogogo">
-<meta property="og:description" content="Design AssumptionsThe design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:  Node failure is the n">
+<meta property="og:description" content="final exam cheatsheet 4.1 DecidablilityUTM(Universal TM):on input &amp;lt; M, w &amp;gt; where M is A TM and w is a given input. Simulate M on w. If M ver accepts or rejects, so do we.L(U) = { &amp;lt; M, w &amp;gt;:">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://misspink1011.github.io/2018/04/03/The-Google-File-System/architecture.png">
-<meta property="og:updated_time" content="2018-04-04T17:02:35.000Z">
+<meta property="og:updated_time" content="2018-04-17T12:50:35.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="The Google File System">
-<meta name="twitter:description" content="Design AssumptionsThe design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:  Node failure is the n">
-<meta name="twitter:image" content="https://misspink1011.github.io/2018/04/03/The-Google-File-System/architecture.png">
+<meta name="twitter:title" content="Theory of Computing Cheatsheet">
+<meta name="twitter:description" content="final exam cheatsheet 4.1 DecidablilityUTM(Universal TM):on input &amp;lt; M, w &amp;gt; where M is A TM and w is a given input. Simulate M on w. If M ver accepts or rejects, so do we.L(U) = { &amp;lt; M, w &amp;gt;:">
 
 
 
@@ -122,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="https://misspink1011.github.io/2018/04/03/The-Google-File-System/"/>
+  <link rel="canonical" href="https://misspink1011.github.io/2018/04/10/Theory-of-Computing-Cheatsheet/"/>
 
 
 
 
 
-  <title>The Google File System | eringogogo</title>
+  <title>Theory of Computing Cheatsheet | eringogogo</title>
   
 
 
@@ -245,7 +243,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://misspink1011.github.io/2018/04/03/The-Google-File-System/">
+    <link itemprop="mainEntityOfPage" href="https://misspink1011.github.io/2018/04/10/Theory-of-Computing-Cheatsheet/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="eringogogo">
@@ -262,7 +260,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">The Google File System</h1>
+          <h1 class="post-title" itemprop="name headline">Theory of Computing Cheatsheet</h1>
         
 
         <div class="post-meta">
@@ -274,8 +272,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-03T13:44:17-04:00">
-                2018-04-03
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-04-10T11:46:12-04:00">
+                2018-04-10
               </time>
             
 
@@ -312,28 +310,21 @@
       
 
       
-        <h4 id="Design-Assumptions"><a href="#Design-Assumptions" class="headerlink" title="Design Assumptions"></a>Design Assumptions</h4><p>The design of Google File System (GFS) was driven by key obserations of their application workloads and technological environment. It has serveral assumptions:</p>
+        <p>final exam cheatsheet</p>
+<h4 id="4-1-Decidablility"><a href="#4-1-Decidablility" class="headerlink" title="4.1 Decidablility"></a>4.1 Decidablility</h4><p>UTM(Universal TM):<br>on input &lt; M, w &gt; where M is A TM and w is a given input. Simulate M on w. If M ver accepts or rejects, so do we.<br>L(U) = { &lt; M, w &gt;: M is a TM, w is an input, M accepts w }</p>
+<h4 id="4-2-Undecidability"><a href="#4-2-Undecidability" class="headerlink" title="4.2 Undecidability"></a>4.2 Undecidability</h4><p>There is a specific problem that is algorithmicaclly unsolvable.</p>
+<h5 id="undicidable-language"><a href="#undicidable-language" class="headerlink" title="undicidable language"></a>undicidable language</h5><p>The problem of determining whether a Turing machine accepts a given input string.<br><strong>A<sub>TM</sub> = {&lt; M, w&gt; | M is a TM and M accepts w}</strong><br>how to understand A<sub>TM</sub>: acceptance problem for TMs of testing whether a paticular TM accepts a given string can be expresse as a language. This language contains the encoding of all TMs together with strings that the DFAs accept.</p>
+<p><strong>Theorem:</strong> A<sub>TM</sub> is undicidable.<br><strong>Proof:</strong> contradiction/diagonalization</p>
 <ul>
-<li><strong>Node failure is the norm.</strong> The system is built from many inexpensive commodity components that often fail. It must constantly monitor itself and detect, tolerate, and recover promptly from component failures on a routine basis.</li>
-<li>The system stores <strong>a modest number of large files</strong>. We expect a few million files, each typically 100 MB or larger in size. Multi-GB files are the common case and should be managed efficiently. Small files must be supported, but we need not optimize for them.</li>
-<li>The workloads primarily consist: <strong>large streaming reads, small random reads and large, sequential appending writes</strong>.</li>
-<li>The system must efficiently implement well-defined semantics for multiple clients that <strong>concurrently append to the same file</strong>. Our files are often used as producer-consumer queues or for many-way merging.</li>
-<li><strong>High sustained bandwidth</strong> is more important than low latency.</li>
+<li>suppose that H is a decider for A<sub>TM</sub>, where<br>H accepts &lt; M, w &gt; exactly when M accepts w.</li>
+<li>construct a new TM D. Run H on input &lt; M, &lt; M &gt; &gt;. output of D is opposite of what H outputs. That is, if H accepts, reject; and if H rejects, accept.</li>
+<li>run D with its own description &lt; D &gt; as input. In that case, we get<br>if D doesn’t accept &lt; D &gt;, D accept &lt; D &gt; ; and if D accepts &lt; D &gt;, D rejects &lt; D &gt;. <u>contradiction!</u></li>
+<li>neither TM D nore TM H can exist.</li>
 </ul>
-<h4 id="Architechture"><a href="#Architechture" class="headerlink" title="Architechture"></a>Architechture</h4><p>A GFS cluster consistes of a <strong>single master</strong> and <strong>multiple chunkservers</strong> and is accessed by <strong>multiple clients</strong>.</p>
-<p><img src="/2018/04/03/The-Google-File-System/architecture.png" alt="GFS Architecture"></p>
-<p>Files are divided into fixed-size chunks. Each chunk is identified by a unique 64 bit chunk handle assigned by the master at the time of chunk creation. The large chunck size (64MB) reduce clients’ needs to interact with the master, reduce network overhead by keeping TCP connection and reduce the size of metadata stored on the master. Chunkservers store chunks on local disks as Linux files and read or write chunk data specified by a chunk handle and byte range. For reliability, each chunk is replicated on multiple chunkservers (default: 3 replicas).</p>
-<p>The master maintains all file system metadata. This includes the namespace, access control information, the mapping from files to chunks, and the current locations of chunks. It also controls system-wide activities such as chunk lease management, garbage collection of orphaned chunks, and chunk migration between chunkservers. The master periodically communicates with each chunkserver in HeartBeat messages to give it instructions and collect its state.</p>
-<p>Clients interact with the master for metadata operations, but all data-bearing communication goes directly to the chunkservers to avoid master being a bottleneck. Neither the client nor the chunkserver caches file data. Clients do cache metadata, however.</p>
-<h6 id="—Metadata"><a href="#—Metadata" class="headerlink" title="—Metadata"></a>—Metadata</h6><p>The master stores 3 major types of metadata:</p>
-<ul>
-<li>the file and chunk namespace</li>
-<li>the mapping from files to chunks</li>
-<li>the locations of each chunk’s replicas</li>
-</ul>
-<p>All metadata is kept in the master’s memory. They first two types are also kept persistent by logging mutations to an operation log stored on the master’s local disk and replicated on remote machines.<br>Using a log allows us to update the master state simply, reliably, and without risking inconsistencies in the event of a master crash.The operation log also serves as a logical time line that defines the order of concurrent operations. The master does not store chunk location information persistently. Instead, it asks each chunkserver about its chunks at master startup and whenever a chunkserver joins the cluster. The master can keep itself up-to-date thereafter with regular HeartBeat messages.</p>
-<h6 id="—Consistency-Model-relaxed-consistency"><a href="#—Consistency-Model-relaxed-consistency" class="headerlink" title="—Consistency Model: relaxed consistency"></a>—Consistency Model: relaxed consistency</h6><p>First, file namespace mutations are handled exclusively by the master. Therefore, it guarantees atomicity and correctness.</p>
-<p>As for mutation in file region, the state after a data mutation depends on the type of mutation. </p>
+<h5 id="unrecognizable-language"><a href="#unrecognizable-language" class="headerlink" title="unrecognizable language"></a>unrecognizable language</h5><p><strong>Theorem:</strong> A is decidable &lt;==&gt; A is recognizable and co-recognizable.(A’complement are recognizable)</p>
+<h4 id="5-1-Undecidable-problems-from-language-Theory"><a href="#5-1-Undecidable-problems-from-language-Theory" class="headerlink" title="5.1 Undecidable problems from language Theory"></a>5.1 Undecidable problems from language Theory</h4><p>Reducibility plays an important role in classifying problems by decidability.<br>if A is reducible to B and B is decidable, A also is decidable; if A is undecidable and reducible to B, B is undicidable. The last version is key to proving that various problems are undecidable.</p>
+<p><strong>Halting Problem:</strong><br>HALT<sub>TM</sub> = {&lt; M, w &gt; | M is a TM and M halts on input w}</p>
+<p>E<sub>TM</sub> = {&lt; M &gt; | M is a TM and L(M) is empty set}</p>
 
       
     </div>
@@ -354,7 +345,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>Post link:</strong>
-    <a href="https://misspink1011.github.io/2018/04/03/The-Google-File-System/" title="The Google File System">https://misspink1011.github.io/2018/04/03/The-Google-File-System/</a>
+    <a href="https://misspink1011.github.io/2018/04/10/Theory-of-Computing-Cheatsheet/" title="Theory of Computing Cheatsheet">https://misspink1011.github.io/2018/04/10/Theory-of-Computing-Cheatsheet/</a>
   </li>
   <li class="post-copyright-license">
     <strong>Copyright Notice: </strong>
@@ -369,9 +360,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/distributed-system/" rel="tag"># distributed system</a>
-          
-            <a href="/tags/paper/" rel="tag"># paper</a>
+            <a href="/tags/theory-of-computing/" rel="tag"># theory of computing</a>
           
         </div>
       
@@ -384,14 +373,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/04/09/Cloud-Computing-vs-Grid-Computing/" rel="next" title="Cloud Computing vs. Grid Computing">
+                <i class="fa fa-chevron-left"></i> Cloud Computing vs. Grid Computing
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/05/Paxos-Made-Simple小结/" rel="prev" title="Paxos Made Simple小结">
-                Paxos Made Simple小结 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/05/04/Introduction-to-Docker/" rel="prev" title="Introduction-to-Docker">
+                Introduction-to-Docker <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -531,7 +524,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#Design-Assumptions"><span class="nav-number">1.</span> <span class="nav-text">Design Assumptions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Architechture"><span class="nav-number">2.</span> <span class="nav-text">Architechture</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#—Metadata"><span class="nav-number">2.0.1.</span> <span class="nav-text">—Metadata</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#—Consistency-Model-relaxed-consistency"><span class="nav-number">2.0.2.</span> <span class="nav-text">—Consistency Model: relaxed consistency</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-Decidablility"><span class="nav-number">1.</span> <span class="nav-text">4.1 Decidablility</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-Undecidability"><span class="nav-number">2.</span> <span class="nav-text">4.2 Undecidability</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#undicidable-language"><span class="nav-number">2.1.</span> <span class="nav-text">undicidable language</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#unrecognizable-language"><span class="nav-number">2.2.</span> <span class="nav-text">unrecognizable language</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-Undecidable-problems-from-language-Theory"><span class="nav-number">3.</span> <span class="nav-text">5.1 Undecidable problems from language Theory</span></a></li></ol></div>
             
 
           </div>
